@@ -1,0 +1,8 @@
+npm-debug.log
+Dockerfile
+.dockerignore
+.git*
+eslint*
+renovate.json
+operator.yaml
+structure.md
