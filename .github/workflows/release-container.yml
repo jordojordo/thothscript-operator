@@ -1,0 +1,49 @@
+name: Release ThothScript Operator Container
+
+on:
+  release:
+    types: [released]
+
+env:
+  ACTIONS_RUNNER_DEBUG: false
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-release-container:
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+      deployments: write
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Buildah Action
+        uses: redhat-actions/buildah-build@v2
+        id: build-image
+        with:
+          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: latest ${{ github.ref_name }} ${{ github.sha }}
+          containerfiles: |
+            ./Containerfile
+
+      - name: Login to GitHub Container Registry
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push To ghcr.io
+        id: push-to-ghcr
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: ${{ env.REGISTRY }}

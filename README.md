@@ -1,1 +1,1 @@
-# kubescript-operator
+# thothscript-operator
