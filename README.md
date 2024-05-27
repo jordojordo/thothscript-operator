@@ -14,7 +14,32 @@ The ThothScript Operator is a Node.js application designed to facilitate script 
 
 ## Installation
 
+To deploy the ThothScript Operator in your Kubernetes cluster, you can use the provided Helm chart. Follow these steps to install the Helm chart:
 
+1. Add the Helm repository:
+
+```bash
+helm repo add jordojordo https://jordojordo.github.io/helm-charts
+helm repo update
+```
+
+2. Install the ThothScript Operator chart:
+
+```bash
+helm install thothscript-operator jordojordo/thothscript-operator
+```
+
+### Configuration
+
+You can customize the installation by providing your own values file or setting parameters directly in the command line. For example:
+
+```bash
+helm install thothscript-operator thothscript-operator/thothscript-operator --namespace thothscript \
+  --set image.tag=0.1.0 \
+  --set service.type=NodePort
+```
+
+For more detailed information on the available parameters and their default values, refer to the [Helm chart](https://github.com/jordojordo/helm-charts/tree/thothscript-operator/charts/thothscript-operator).
 
 ## Usage
 
