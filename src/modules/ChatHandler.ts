@@ -47,6 +47,12 @@ class ChatHandler {
       console.log('Received message:', message.toString());
       const parsedMessage = JSON.parse(message.toString());
 
+      if ( parsedMessage.type === 'ping' ) {
+        console.log('Received ping from client');
+        // Optionally, send a pong response
+        ws.send(JSON.stringify({ type: 'pong' }));
+      }
+
       await this.handleMessage(ws, parsedMessage);
     });
 
