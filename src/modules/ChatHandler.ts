@@ -51,9 +51,9 @@ class ChatHandler {
         console.log('Received ping from client');
         // Optionally, send a pong response
         ws.send(JSON.stringify({ type: 'pong' }));
+      } else {
+        await this.handleMessage(ws, parsedMessage);
       }
-
-      await this.handleMessage(ws, parsedMessage);
     });
 
     ws.on('close', () => {
