@@ -82,8 +82,10 @@ class ChatHandler {
           }
         }
 
+        const run = await client.evaluate(tools, opts);
+
         chatState = {
-          run: client.evaluate(tools, opts),
+          run,
           next: null,
           initializing: true
         };
@@ -124,14 +126,14 @@ class ChatHandler {
           });
 
           chatState.next.on(gptscript.RunEventType.CallProgress, (data) => {
-            console.log('CallProgress continue event:', data.content);
+            console.log('CallProgress continue event:', data);
             const chatOutput = { event: 'CallProgress', message: data };
             
             this.send(ws, chatOutput);
           });
   
           chatState.next.on(gptscript.RunEventType.CallFinish, (data) => {
-            console.log('CallFinish continue event:', data.content);
+            console.log('CallFinish continue event:', data);
             const chatOutput = { event: 'CallFinish', message: data };
 
             this.send(ws, chatOutput);

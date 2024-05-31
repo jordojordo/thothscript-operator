@@ -13,7 +13,7 @@
     "format": "npx eslint . --fix"
   },
   "dependencies": {
-    "@gptscript-ai/gptscript": "^0.6.1",
+    "@gptscript-ai/gptscript": "^0.7.3",
     "body-parser": "^1.20.2",
     "express": "^4.19.2",
     "ws": "^8.17.0"
