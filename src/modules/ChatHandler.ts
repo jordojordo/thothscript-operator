@@ -1,12 +1,12 @@
 import WebSocket, { WebSocketServer } from 'ws';
 import { Server as HttpServer } from 'http';
-import * as gptscript from '@gptscript-ai/gptscript';
+import { GPTScript, Run, RunOpts, RunState, RunEventType } from '@gptscript-ai/gptscript';
 
 import { mainTool, kubectlTool, helmTool } from '../types/tools.js';
 
 interface ChatState {
-  run: gptscript.Run;
-  next: gptscript.Run | null;
+  run: Run;
+  next: Run | null;
   initializing: boolean;
 }
 
@@ -19,7 +19,7 @@ interface UserMessage {
     modelName: string,
     temperature: number,
     chat: boolean,
-    runOpts: gptscript.RunOpts
+    runOpts: RunOpts
   }
 }
 
@@ -69,9 +69,9 @@ class ChatHandler {
     if ( input && (!chatState || chatState.initializing) ) {
       console.log('Initializing new chat session with input:', input);
       try {
-        const client = new gptscript.Client();
+        const client = new GPTScript();
         const tools = [mainTool, kubectlTool, helmTool];
-        const opts: gptscript.RunOpts = { ...message.toolConfig.runOpts, input };
+        const opts: RunOpts = { ...message.toolConfig.runOpts, input };
 
         if ( message.toolConfig ) {
           for ( const tool of tools ) {
@@ -113,26 +113,26 @@ class ChatHandler {
 
     if ( chatState && input ) {
       try {
-        if ( chatState.run.state === gptscript.RunState.Continue ) {
+        if ( chatState.run.state === RunState.Continue ) {
           console.log('Continuing chat with input:', input);
           chatState.next = chatState.run.nextChat(input);
           const output = await chatState.next.text();
 
-          chatState.next.on(gptscript.RunEventType.CallContinue, (data) => {
+          chatState.next.on(RunEventType.CallContinue, (data) => {
             console.log('CallContinue continue event:', data);
             const chatOutput = { event: 'CallContinue', message: data };
             
             this.send(ws, chatOutput);
           });
 
-          chatState.next.on(gptscript.RunEventType.CallProgress, (data) => {
+          chatState.next.on(RunEventType.CallProgress, (data) => {
             console.log('CallProgress continue event:', data);
             const chatOutput = { event: 'CallProgress', message: data };
             
             this.send(ws, chatOutput);
           });
   
-          chatState.next.on(gptscript.RunEventType.CallFinish, (data) => {
+          chatState.next.on(RunEventType.CallFinish, (data) => {
             console.log('CallFinish continue event:', data);
             const chatOutput = { event: 'CallFinish', message: data };
 

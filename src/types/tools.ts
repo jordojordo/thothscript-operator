@@ -56,7 +56,6 @@ export const mainTool: gptscript.ToolDef = {
   globalTools: [],
   context: [],
   export: [],
-  blocking: true,
   instructions: toolsContentMap['main']
 };
 
@@ -83,7 +82,6 @@ export const kubectlTool: gptscript.ToolDef = {
   globalTools: [],
   context: [],
   export: [],
-  blocking: true,
   instructions: toolsContentMap['kubectl']
 };
 
@@ -110,6 +108,5 @@ export const helmTool: gptscript.ToolDef = {
   globalTools: [],
   context: [],
   export: [],
-  blocking: true,
   instructions: toolsContentMap['helm']
 };
