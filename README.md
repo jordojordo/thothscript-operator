@@ -118,20 +118,20 @@ send('Hello, ThothScript!');
 To set up the thothscript-operator, ensure you have Node.js installed, then run:
 
 ```bash
-yarn install
+pnpm install
 ```
 
 ## Usage
 Start the server with:
 
 ```bash
-yarn start
+pnpm start
 ```
 
 For development, watch for changes in the source files:
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 ## License

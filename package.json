@@ -1,31 +1,33 @@
 {
   "name": "gptscript-operator",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "index.js",
   "license": "MIT",
   "type": "module",
+  "packageManager": "pnpm@9.12.1",
   "scripts": {
     "build": "tsc && mkdir -p dist/tools && cp -r src/tools/* dist/tools/",
-    "clean": "rm -rf dist && yarn cache clean",
+    "clean": "rm -rf dist && pnpm cache clean",
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "lint": "npx eslint .",
     "format": "npx eslint . --fix"
   },
   "dependencies": {
-    "@gptscript-ai/gptscript": "^0.9.4",
+    "@gptscript-ai/gptscript": "^0.9.5",
     "body-parser": "^1.20.3",
-    "express": "^4.19.2",
-    "ws": "^8.17.1"
+    "express": "^4.21.1",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.5",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.7.2",
-    "@types/ws": "^8.5.10",
-    "eslint": "^9.2.0",
-    "globals": "^15.1.0",
-    "sse.js": "^2.4.1",
-    "tsx": "^4.10.1",
-    "typescript": "^5.4.5"
+    "@types/node": "^22.7.5",
+    "@types/ws": "^8.5.12",
+    "eslint": "^9.12.0",
+    "globals": "^15.11.0",
+    "sse.js": "^2.5.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
   }
 }
