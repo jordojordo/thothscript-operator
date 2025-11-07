@@ -1,10 +1,10 @@
 {
-  "name": "gptscript-operator",
-  "version": "0.1.8",
+  "name": "thothscript-operator",
+  "version": "0.1.9",
   "main": "index.js",
   "license": "MIT",
   "type": "module",
-  "packageManager": "pnpm@9.13.2",
+  "packageManager": "pnpm@10.20.0",
   "scripts": {
     "build": "tsc && mkdir -p dist/tools && cp -r src/tools/* dist/tools/",
     "clean": "rm -rf dist && pnpm cache clean",
@@ -14,20 +14,20 @@
     "format": "npx eslint . --fix"
   },
   "dependencies": {
-    "@gptscript-ai/gptscript": "^0.9.5",
+    "@gptscript-ai/gptscript": "^0.9.7",
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
-    "ws": "^8.18.2"
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.6",
-    "@types/express": "^5.0.3",
-    "@types/node": "^22.15.30",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.0",
     "@types/ws": "^8.18.1",
-    "eslint": "^9.28.0",
-    "globals": "^16.2.0",
-    "sse.js": "^2.6.0",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "sse.js": "^2.7.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }
